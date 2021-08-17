@@ -777,9 +777,6 @@ def generate(text):
                 results.append(i + '123')
                 results.append(i + '12345')
                 results.append(i)
-                if 'indonesia' in ips:
-                    results.append('1234554321')
-                    results.append('1122334455')
 
     return results
 
